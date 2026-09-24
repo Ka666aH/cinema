@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MovieCard from '@/components/MovieCard.vue';
+import MoviesList from '@/components/MoviesList.vue';
 import type { Movie } from '@/types/Movie';
 import type { MovieRating } from '@/types/MovieRating';
 import type { MovieStatus } from '@/types/MovieStatus';
@@ -26,14 +26,21 @@ const movies = ref<Movie[]>(
     ]
 )
 
-const setRating = (movie: Movie, newRating: MovieRating) => movie.rating = newRating;
-const setStatus = (movie: Movie, newStatus: MovieStatus) => movie.status = newStatus;
+function setRating(id: Movie['id'], value: MovieRating) {
+    const m = movies.value.find(m => m.id === id)
+    if (m) m.rating = value
+}
+function setStatus(id: Movie['id'], value: MovieStatus) {
+    const m = movies.value.find(m => m.id === id)
+    if (m) m.status = value
+}
 </script>
 
 <template>
-    <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie"
-        @set-rating="(newRating) => setRating(movie, newRating)"
-        @set-status="(newStatus) => setStatus(movie, newStatus)" />
+    <MoviesList :movies="movies"
+    @set-rating="(id, value) => setRating(id, value)"
+    @set-status="(id, value) => setStatus(id, value)"
+    />
 </template>
 
 <style scoped></style>
