@@ -8,8 +8,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    setRating: [newRating: MovieRating]
-    setStatus: [newStatus: MovieStatus]
+    setRating: [value: MovieRating]
+    setStatus: [value: MovieStatus]
 }>()
 
 const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
