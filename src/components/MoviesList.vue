@@ -16,9 +16,17 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie"
-        @set-rating="(value) => emit('setRating', movie.id, value)"
-        @set-status="(value) => emit('setStatus', movie.id, value)" />
+    <section class="list">
+        <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie"
+            @set-rating="(value) => emit('setRating', movie.id, value)"
+            @set-status="(value) => emit('setStatus', movie.id, value)" />
+    </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.list {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+</style>

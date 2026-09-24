@@ -2,32 +2,41 @@
 import type { Movie } from '@/types/Movie';
 import type { MovieRating } from '@/types/MovieRating';
 import type { MovieStatus } from '@/types/MovieStatus';
+import placeholder from '@/assets/images/posterPlaceholder.png'
+import { ref } from 'vue';
 
 const props = defineProps<{
     movie: Movie
 }>()
-
 const emit = defineEmits<{
     setRating: [value: MovieRating]
     setStatus: [value: MovieStatus]
 }>()
 
 const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const posterURL = ref(props.movie.posterURL || placeholder)
+
+const onError = () => posterURL.value = placeholder
 </script>
 
 <template>
     <article class="card">
-        <div>
-            <span class="card__id">{{ movie.id }}</span>
-            <span class="card__title">{{ movie.title }}</span>
-            <span class="card__year">{{ movie.year }}</span>
-        </div>
+        <figure>
+            <div class="card__poster-wrap">
+                <img class="card__poster" :src="posterURL" :alt="`${movie.title}(${movie.year}) poster`"
+                    @error="onError">
+            </div>
+            <figcaption>
+                <span class="card__id">{{ movie.id }}</span>
+                <span class="card__title">{{ movie.title }}</span>
+                <span class="card__year">{{ movie.year }}</span>
+            </figcaption>
+        </figure>
         <div class="card__genre">{{ movie.genre }}</div>
         <button class="card__status" :class="{
             'card__status--planned': movie.status === 'planned',
             'card__status--watched': movie.status === 'watched',
-        }" @click="emit('setStatus', movie.status === 'planned' ? 'watched' : 'planned')"
-        >{{ movie.status }}</button>
+        }" @click="emit('setStatus', movie.status === 'planned' ? 'watched' : 'planned')">{{ movie.status }}</button>
         <div class="card__rating" v-if="movie.status === 'watched'">
             <button class="card__star" v-for="rating in ratings" :key="rating" type="button"
                 :class="{ 'card__star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
@@ -44,10 +53,26 @@ const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 .card {
     display: flex;
     flex-direction: column;
+    max-width: 280px;
+    width: 100%;
     background-color: cadetblue;
     padding: 20px;
     border-radius: 20px;
     gap: 10px;
+}
+
+.card__poster-wrap {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+.card__poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .card__id {
