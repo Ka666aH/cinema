@@ -53,6 +53,7 @@ const onError = () => posterURL.value = placeholder
 .card {
     display: flex;
     flex-direction: column;
+    min-width: 140px;
     max-width: 280px;
     width: 100%;
     background-color: cadetblue;
