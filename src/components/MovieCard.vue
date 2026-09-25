@@ -100,7 +100,7 @@ const onError = () => posterURL.value = placeholder
 
 .card__genre {
     align-self: flex-start;
-    background-color: #84dadd;
+    background-color: #8ee;
     padding: 5px;
     border-radius: 10px;
 }
@@ -144,7 +144,7 @@ const onError = () => posterURL.value = placeholder
     padding: 0px;
     background-color: transparent;
     font-size: 150%;
-    color: #84dadd;
+    color: #8ee;
     transition: none;
     cursor: pointer;
 }
