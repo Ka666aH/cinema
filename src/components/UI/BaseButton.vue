@@ -10,18 +10,18 @@
 
 <style scoped>
 button {
-    border: solid 1px black;
+    border: solid 1px var(--color-button-border);
     border-radius: 10px;
-    background-color: #467;
+    background-color: var(--color-element-bg);
     cursor: pointer;
-    color: white;
+    color: var(--color-element-text);
 }
 
 button:hover {
     transition: 
     background-color .25s,
     transform .25s;
-    background-color: #355;
+    background-color: var(--color-element-bg-focus);
     transform: scale(1.1);
 }
 </style>

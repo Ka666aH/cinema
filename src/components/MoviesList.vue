@@ -26,7 +26,9 @@ const emit = defineEmits<{
 <style scoped>
 .list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     gap: 20px;
+
 }
 </style>

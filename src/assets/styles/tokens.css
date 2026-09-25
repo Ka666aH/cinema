@@ -1,0 +1,18 @@
+:root {
+    --color-bg: #bef;
+    --color-text: black;
+
+    --color-element-bg: #467;
+    --color-element-bg-focus: #355;
+    --color-element-text: white;
+
+    --color-button-border: black;
+
+    --color-card-bg: cadetblue;
+    --color-card-id: lightgray;
+    --color-card-bg-genre: #8ee;
+    --color-card-status-planned: lightgray;
+    --color-card-status-watched: green;
+    --color-card-star: #8ee;
+    --color-card-star-active: gold;
+}

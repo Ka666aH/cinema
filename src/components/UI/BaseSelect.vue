@@ -30,12 +30,12 @@ select,
 }
 
 option {
-    background-color: #467;
-    color: black;
+    background-color: var(--color-element-bg);
+    color: var(--color-element-text);
     padding: 8px 12px;
 }
 
 option:hover {
-    background-color: #355;
+    background-color: var(--color-element-bg-focus);
 }
 </style>

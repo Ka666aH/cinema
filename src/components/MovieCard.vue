@@ -56,7 +56,7 @@ const onError = () => posterURL.value = placeholder
     min-width: 140px;
     max-width: 280px;
     width: 100%;
-    background-color: cadetblue;
+    background-color: var(--color-card-bg);
     padding: 20px;
     border-radius: 20px;
     gap: 10px;
@@ -77,7 +77,7 @@ const onError = () => posterURL.value = placeholder
 }
 
 .card__id {
-    color: lightgray;
+    color: var(--color-card-id);
     margin-right: 10px;
 }
 
@@ -100,7 +100,7 @@ const onError = () => posterURL.value = placeholder
 
 .card__genre {
     align-self: flex-start;
-    background-color: #8ee;
+    background-color: var(--color-card-bg-genre);
     padding: 5px;
     border-radius: 10px;
 }
@@ -115,11 +115,11 @@ const onError = () => posterURL.value = placeholder
 }
 
 .card__status--planned {
-    background-color: lightgray;
+    background-color: var(--color-card-status-planned);
 }
 
 .card__status--watched {
-    background-color: green;
+    background-color: var(--color-card-status-watched);
 }
 
 .card__status:hover {
@@ -127,16 +127,16 @@ const onError = () => posterURL.value = placeholder
 }
 
 .card__status--planned:hover {
-    background-color: green;
+    background-color: var(--color-card-status-watched);
 }
 
 .card__status--watched:hover {
-    background-color: lightgray;
+    background-color: var(--color-card-status-planned);
 }
 
 .card__rating {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card__star {
@@ -144,7 +144,7 @@ const onError = () => posterURL.value = placeholder
     padding: 0px;
     background-color: transparent;
     font-size: 150%;
-    color: #8ee;
+    color: var(--color-card-star);
     transition: none;
     cursor: pointer;
 }
@@ -155,7 +155,7 @@ const onError = () => posterURL.value = placeholder
 }
 
 .card__star--active {
-    color: gold;
+    color: var(--color-card-star-active);
 }
 
 .card__clear-rating {
