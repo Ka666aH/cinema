@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import MoviesList from '@/components/MoviesList.vue';
+import MoviesControls from '@/components/MoviesControls.vue';
 import type { Movie } from '@/types/Movie';
 import type { MovieRating } from '@/types/MovieRating';
 import type { MovieStatus } from '@/types/MovieStatus';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import type { RatingFilter, StatusFilter } from '@/types/Filters';
+import type { SortOrder } from '@/types/SortOrder';
 
 const movies = ref<Movie[]>(
     [
@@ -46,6 +49,41 @@ const movies = ref<Movie[]>(
     ]
 )
 
+const sortKey = ref('number')
+const sortOrder = ref<SortOrder>('asc')
+const sorted = computed(() => {
+    const dir = sortOrder.value === 'asc' ? 1 : -1
+
+    return [...movies.value].sort((a, b) => {
+        switch (sortKey.value) {
+            case 'number': return a.id.localeCompare(b.id) * dir
+            case 'title': return a.title.localeCompare(b.title) * dir
+            case 'date': return (a.year - b.year) * dir
+            case 'rating': {
+                if (a.rating === null && b.rating === null) return 0
+                if (a.rating === null) return 1
+                if (b.rating === null) return -1
+                return (a.rating - b.rating) * dir
+            }
+            default: { return 0 }
+        }
+    })
+})
+
+const statusFilter = ref<StatusFilter>('all')
+const ratingFilter = ref<RatingFilter>('all')
+const filtered = computed(() =>
+    sorted.value.filter(m => {
+        if (statusFilter.value !== 'all' && statusFilter.value !== m.status) return false
+        if (ratingFilter.value === 'rated' && m.rating === null) return false
+        if (ratingFilter.value === 'unrated' && m.rating !== null) return false
+        return true
+    })
+)
+
+const search = ref('')
+const searched = computed(() => filtered.value.filter(m => m.title.toLowerCase().includes(search.value.trim().toLowerCase())))
+
 function setRating(id: Movie['id'], value: MovieRating) {
     const m = movies.value.find(m => m.id === id)
     if (m) m.rating = value
@@ -57,7 +95,9 @@ function setStatus(id: Movie['id'], value: MovieStatus) {
 </script>
 
 <template>
-    <MoviesList :movies="movies" @set-rating="(id, value) => setRating(id, value)"
+    <MoviesControls v-model:sortKey="sortKey" v-model:sortOrder="sortOrder" v-model:statusFilter="statusFilter"
+        v-model:ratingFilter="ratingFilter" v-model:search="search" />
+    <MoviesList :movies="searched" @set-rating="(id, value) => setRating(id, value)"
         @set-status="(id, value) => setStatus(id, value)" />
 </template>
 
