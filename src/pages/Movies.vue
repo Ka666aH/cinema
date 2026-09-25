@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue';
 import MoviesList from '@/components/MoviesList.vue';
 import MoviesControls from '@/components/MoviesControls.vue';
 import type { Movie } from '@/types/Movie';
+import type { SortOrder } from '@/types/SortOrder';
 import type { MovieRating } from '@/types/MovieRating';
 import type { MovieStatus } from '@/types/MovieStatus';
-import { computed, ref } from 'vue';
 import type { RatingFilter, StatusFilter } from '@/types/Filters';
-import type { SortOrder } from '@/types/SortOrder';
 
 const movies = ref<Movie[]>(
     [
@@ -40,7 +40,7 @@ const movies = ref<Movie[]>(
         {
             id: '4',
             posterURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtHSoSnuHdECIHnajW_x_xfUadR_fI4lZDe8d8WRgZUA&s',
-            title: 'Schindler\'s List',
+            title: "Schindler's List",
             year: 1993,
             genre: 'Drama',
             status: 'planned',

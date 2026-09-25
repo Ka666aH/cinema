@@ -1,4 +1,8 @@
-body{
+body {
     background-color: var(--color-bg);
     color: var(--color-text);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }

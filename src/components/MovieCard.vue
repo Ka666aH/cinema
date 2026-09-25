@@ -38,13 +38,13 @@ const onError = () => posterURL.value = placeholder
             'card__status--watched': movie.status === 'watched',
         }" @click="emit('setStatus', movie.status === 'planned' ? 'watched' : 'planned')">{{ movie.status }}</button>
         <div class="card__rating" v-if="movie.status === 'watched'">
-            <button class="card__star" v-for="rating in ratings" :key="rating" type="button"
-                :class="{ 'card__star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
-                ★
-            </button>
-            <BaseButton class="card__clear-rating" v-if="movie.rating !== null" @click="emit('setRating', null)">
-                Clear
-            </BaseButton>
+            <div class="card__stars">
+                <button class="card__star" v-for="rating in ratings" :key="rating" type="button"
+                    :class="{ 'card__star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
+                    ★
+                </button>
+            </div>
+            <BaseButton v-if="movie.rating !== null" @click="emit('setRating', null)">Clear</BaseButton>
         </div>
     </article>
 </template>
@@ -53,8 +53,6 @@ const onError = () => posterURL.value = placeholder
 .card {
     display: flex;
     flex-direction: column;
-    min-width: 140px;
-    max-width: 280px;
     width: 100%;
     background-color: var(--color-card-bg);
     padding: 20px;
@@ -137,6 +135,8 @@ const onError = () => posterURL.value = placeholder
 .card__rating {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 20px;
 }
 
 .card__star {
@@ -156,9 +156,5 @@ const onError = () => posterURL.value = placeholder
 
 .card__star--active {
     color: var(--color-card-star-active);
-}
-
-.card__clear-rating {
-    margin-left: 10px;
 }
 </style>

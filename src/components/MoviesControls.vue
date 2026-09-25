@@ -33,23 +33,60 @@ const toggleSortOrder = () => sortOrder.value = sortOrder.value === 'asc' ? 'des
 
 <template>
     <section class="controls">
-        <div>
+        <label class="search-wrap">
+            Search
+            <BaseInput class="search" v-model="search" />
+        </label>
+        <div class="filter-sort">
+            <div class="filters">
+                <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" :direction="'column'" />
+                <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" :direction="'column'" />
+            </div>
             <label>
-                Search
-                <BaseInput v-model="search" />
-            </label>
-            <label>
-                Show
-                <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" />
-                <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" />
-            </label>
-            <label>
-                Sort by
-                <BaseSelect v-model="sortKey" :options="sortOptions" />
-                <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
+                Sort
+                <div class="sort-wrap">
+                    <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
+                    <BaseSelect v-model="sortKey" name="sortOptions" :options="sortOptions" />
+                </div>
             </label>
         </div>
     </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.search-wrap {
+    flex: 1 1 300px;
+    min-width: 300px;
+}
+
+.search {
+    width: 100%;
+}
+
+.filters {
+    display: flex;
+}
+
+.filter-sort {
+    display: flex;
+    gap: 20px;
+    flex: 0 0 auto;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-wrap {
+    display: flex;
+}
+</style>

@@ -3,12 +3,13 @@ import type { Option } from '@/types/Option';
 
 const model = defineModel<string>()
 const props = defineProps<{
+    name: string
     options: Option[]
 }>()
 </script>
 
 <template>
-    <select v-model="model">
+    <select v-model="model" :name="name">
         <option v-for="option in options" :key="option.key" :value="option.key">
             {{ option.value }}
         </option>

@@ -6,6 +6,4 @@ const model = defineModel<string>()
     <input type="text" v-model="model">
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

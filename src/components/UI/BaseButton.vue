@@ -11,6 +11,7 @@
 <style scoped>
 button {
     border: solid 1px var(--color-button-border);
+    padding: 10px;
     border-radius: 10px;
     background-color: var(--color-element-bg);
     cursor: pointer;
