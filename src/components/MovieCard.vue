@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { Movie } from '@/types/Movie';
-import type { MovieRating } from '@/types/MovieRating';
-import type { MovieStatus } from '@/types/MovieStatus';
+import type { Movie, Rating, Status } from '@/types/Movie';
 import placeholder from '@/assets/images/posterPlaceholder.png'
 import { ref } from 'vue';
 
@@ -9,8 +7,8 @@ const props = defineProps<{
     movie: Movie
 }>()
 const emit = defineEmits<{
-    setRating: [value: MovieRating]
-    setStatus: [value: MovieStatus]
+    setRating: [value: Rating]
+    setStatus: [value: Status]
 }>()
 
 const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

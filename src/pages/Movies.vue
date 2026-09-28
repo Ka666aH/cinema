@@ -2,10 +2,8 @@
 import { computed, ref } from 'vue';
 import MoviesList from '@/components/MoviesList.vue';
 import MoviesControls from '@/components/MoviesControls.vue';
-import type { Movie } from '@/types/Movie';
+import type { Movie, Rating, Status } from '@/types/Movie';
 import type { SortOrder } from '@/types/SortOrder';
-import type { MovieRating } from '@/types/MovieRating';
-import type { MovieStatus } from '@/types/MovieStatus';
 import type { RatingFilter, StatusFilter } from '@/types/Filters';
 
 const movies = ref<Movie[]>(
@@ -84,11 +82,11 @@ const filtered = computed(() =>
 const search = ref('')
 const searched = computed(() => filtered.value.filter(m => m.title.toLowerCase().includes(search.value.trim().toLowerCase())))
 
-function setRating(id: Movie['id'], value: MovieRating) {
+function setRating(id: Movie['id'], value: Rating) {
     const m = movies.value.find(m => m.id === id)
     if (m) m.rating = value
 }
-function setStatus(id: Movie['id'], value: MovieStatus) {
+function setStatus(id: Movie['id'], value: Status) {
     const m = movies.value.find(m => m.id === id)
     if (m) m.status = value
 }
