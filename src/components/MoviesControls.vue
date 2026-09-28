@@ -2,6 +2,13 @@
 import type { RatingFilter, StatusFilter } from '@/types/Filters';
 import type { Option } from '@/types/Option.ts';
 import type { SortOrder } from '@/types/SortOrder';
+import MovieForm from './MovieForm.vue';
+import { ref } from 'vue';
+import type { Movie } from '@/types/Movie.ts';
+
+const emit = defineEmits<{
+    addMovie: [movie: Movie]
+}>()
 
 const sortKey = defineModel<string>('sortKey', { required: true })
 const sortOrder = defineModel<SortOrder>('sortOrder', { required: true })
@@ -29,32 +36,46 @@ const ratingOptions: Option[] = [
 ]
 
 const toggleSortOrder = () => sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+
+const isFormOpen = ref(false)
 </script>
 
 <template>
     <section class="controls">
-        <label class="search-wrap">
-            Search
-            <BaseInput class="search" v-model="search" />
-        </label>
-        <div class="filter-sort">
-            <div class="filters">
-                <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" :direction="'column'" />
-                <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" :direction="'column'" />
-            </div>
-            <label>
-                Sort
-                <div class="sort-wrap">
-                    <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
-                    <BaseSelect v-model="sortKey" name="sortOptions" :options="sortOptions" />
-                </div>
+        <BaseButton @click="isFormOpen = true">
+            <h2>Add movie</h2>
+        </BaseButton>
+        <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
+        <div class="display-controls-wrap">
+            <label class="search-wrap">
+                Search
+                <BaseInput class="search" v-model="search" />
             </label>
+            <div class="filter-sort">
+                <div class="filters">
+                    <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" :direction="'column'" />
+                    <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" :direction="'column'" />
+                </div>
+                <label>
+                    Sort
+                    <div class="sort-wrap">
+                        <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
+                        <BaseSelect v-model="sortKey" name="sortOptions" :options="sortOptions" />
+                    </div>
+                </label>
+            </div>
         </div>
     </section>
 </template>
 
 <style scoped>
 .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.display-controls-wrap {
     display: flex;
     flex-wrap: wrap;
     align-items: start;
