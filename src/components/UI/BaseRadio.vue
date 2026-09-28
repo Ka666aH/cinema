@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Option } from '@/types/Option';
 
-const model = defineModel<string>()
+const key = defineModel<string>({ required: true })
 
 defineProps<{
     name: string,
@@ -14,7 +14,7 @@ defineProps<{
     <div class="radio-wrap" :class="{ 'radio-wrap--column': direction === 'column' }">
         <label class="legend">{{ name }}</label>
         <label v-for="option in options" :key="option.key">
-            <input type="radio" :name="name" :value="option.key" v-model="model">
+            <input type="radio" :name="name" :value="option.key" v-model="key">
             <span>{{ option.value }}</span>
         </label>
     </div>

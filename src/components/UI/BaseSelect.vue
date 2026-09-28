@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Option } from '@/types/Option';
 
-const model = defineModel<string>()
+const key = defineModel<string>({ required: true })
 const props = defineProps<{
     name: string
     options: Option[]
@@ -9,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <select v-model="model" :name="name">
+    <select v-model="key" :name="name">
         <option v-for="option in options" :key="option.key" :value="option.key">
             {{ option.value }}
         </option>
