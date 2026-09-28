@@ -90,13 +90,14 @@ function setStatus(id: Movie['id'], value: Status) {
     const m = movies.value.find(m => m.id === id)
     if (m) m.status = value
 }
+const addMovie = (movie: Movie) => movies.value.push(movie)
+const removeMovie = (movieId: string) => movies.value = movies.value.filter(m => m.id !== movieId)
 </script>
 
 <template>
     <MoviesControls v-model:sortKey="sortKey" v-model:sortOrder="sortOrder" v-model:statusFilter="statusFilter"
-        v-model:ratingFilter="ratingFilter" v-model:search="search" />
-    <MoviesList :movies="searched" @set-rating="(id, value) => setRating(id, value)"
-        @set-status="(id, value) => setStatus(id, value)" />
+        v-model:ratingFilter="ratingFilter" v-model:search="search" @add-movie="addMovie" />
+    <MoviesList :movies="searched" @set-rating="setRating" @set-status="setStatus" @remove-movie="removeMovie" />
 </template>
 
 <style scoped></style>

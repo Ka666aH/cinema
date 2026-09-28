@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Movie, Rating, Status } from '@/types/Movie';
 import placeholder from '@/assets/images/posterPlaceholder.png'
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const props = defineProps<{
     movie: Movie
@@ -9,17 +9,21 @@ const props = defineProps<{
 const emit = defineEmits<{
     setRating: [value: Rating]
     setStatus: [value: Status]
+    removeMovie: []
 }>()
 
 const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const posterURL = ref(props.movie.posterURL || placeholder)
 
-const onError = () => posterURL.value = placeholder
+const isError = ref(false)
+const onError = () => { isError.value = true }
+const posterURL = computed(() => isError.value || !props.movie.posterURL ? placeholder : props.movie.posterURL)
+watch(() => props.movie.posterURL, () => isError.value = false)
+
 </script>
 
 <template>
     <article class="card">
-        <figure>
+        <figure class="card__title-poster-wrap">
             <div class="card__poster-wrap">
                 <img class="card__poster" :src="posterURL" :alt="`${movie.title}(${movie.year}) poster`"
                     @error="onError">
@@ -44,6 +48,7 @@ const onError = () => posterURL.value = placeholder
             </div>
             <BaseButton v-if="movie.rating !== null" @click="emit('setRating', null)">Clear</BaseButton>
         </div>
+        <BaseButton class="card__remove-button" @click="emit('removeMovie')">Remove movie</BaseButton>
     </article>
 </template>
 
@@ -56,6 +61,10 @@ const onError = () => posterURL.value = placeholder
     padding: 20px;
     border-radius: 20px;
     gap: 10px;
+}
+
+.card__title-poster-wrap {
+    margin: 0;
 }
 
 .card__poster-wrap {
@@ -143,7 +152,6 @@ const onError = () => posterURL.value = placeholder
     background-color: transparent;
     font-size: 150%;
     color: var(--color-card-star);
-    transition: none;
     cursor: pointer;
 }
 
@@ -154,5 +162,9 @@ const onError = () => posterURL.value = placeholder
 
 .card__star--active {
     color: var(--color-card-star-active);
+}
+
+.card__remove-button {
+    margin-top: auto;
 }
 </style>

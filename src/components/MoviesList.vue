@@ -9,6 +9,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     setRating: [id: Movie['id'], value: Rating]
     setStatus: [id: Movie['id'], value: Status]
+    removeMovie: [id: Movie['id']]
 }>()
 
 </script>
@@ -17,7 +18,8 @@ const emit = defineEmits<{
     <TransitionGroup tag="ul" name="list" class="list">
         <li v-for="movie in movies" :key="movie.id" class="list-item">
             <MovieCard :movie="movie" @set-rating="(value) => emit('setRating', movie.id, value)"
-                @set-status="(value) => emit('setStatus', movie.id, value)" />
+                @set-status="(value) => emit('setStatus', movie.id, value)"
+                @remove-movie="emit('removeMovie', movie.id)" />
         </li>
     </TransitionGroup>
 </template>
