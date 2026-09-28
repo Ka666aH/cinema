@@ -15,7 +15,7 @@ const genre = ref<string>('')
 const posterURL = ref<string>('')
 
 const movie = computed<Movie>(() => ({
-    id: 'N',
+    id: crypto.randomUUID(),
     posterURL: posterURL.value,
     title: title.value,
     year: Number(year.value),
