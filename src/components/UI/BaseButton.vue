@@ -21,13 +21,8 @@ button {
 }
 
 button:hover {
-    transition:
-        background-color .25s;
+    transition: background-color .25s;
     background-color: var(--color-element-bg-focus);
-    /* background-color .25s,
-    transform .25s;
-    background-color: var(--color-element-bg-focus);
-    transform: scale(1.1); */
 }
 
 button:disabled {
