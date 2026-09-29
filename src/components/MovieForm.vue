@@ -8,14 +8,15 @@ const emit = defineEmits<{
 }>()
 
 const isOpen = defineModel<boolean>({ required: true })
-
+const idPlaceholder = '????????-????-????-????-????????????'
+const id = ref<string>(idPlaceholder)
 const title = ref<string>('')
 const year = ref<string>('')
 const genre = ref<string>('')
 const posterURL = ref<string>('')
 
 const movie = computed<Movie>(() => ({
-    id: crypto.randomUUID(),
+    id: id.value,
     posterURL: posterURL.value,
     title: title.value,
     year: Number(year.value),
@@ -25,10 +26,12 @@ const movie = computed<Movie>(() => ({
 }))
 
 function onSubmit() {
+    id.value = crypto.randomUUID()
     emit('addMovie', movie.value)
     clear()
 }
 function clear() {
+    id.value = idPlaceholder
     title.value = ''
     year.value = ''
     genre.value = ''
@@ -85,9 +88,10 @@ const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
 </template>
 
 <style scoped>
-.dialog{
+.dialog {
     background-color: var(--color-bg);
 }
+
 .header {
     margin-top: 0;
 }
