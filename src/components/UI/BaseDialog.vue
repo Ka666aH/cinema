@@ -30,8 +30,10 @@ dialog {
     border: none;
     border-radius: 12px;
     padding: 0;
-    max-width: 500px;
-    width: 90%;
+    width: min(90vw, 720px);
+    max-height: 90vh;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 dialog::backdrop {
