@@ -29,4 +29,9 @@ button:hover {
     background-color: var(--color-element-bg-focus);
     transform: scale(1.1); */
 }
+
+button:disabled {
+    background-color: var(--color-element-bg-disabled);
+    cursor: not-allowed;
+}
 </style>

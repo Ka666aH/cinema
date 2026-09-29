@@ -1,9 +1,11 @@
 :root {
     --color-bg: #bef;
     --color-text: black;
+    --color-error: #c00;
 
     --color-element-bg: #467;
     --color-element-bg-focus: #355;
+    --color-element-bg-disabled: gray;
     --color-element-text: white;
 
     --color-button-border: black;
