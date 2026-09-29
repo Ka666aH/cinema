@@ -37,7 +37,7 @@ const stats = computed(() => {
         <div>Watched: {{ stats.watched }}</div>
         <div>Rated: {{ stats.rated }}</div>
         <div>Unrated: {{ stats.unrated }}</div>
-        <div>Average rating: {{ stats.avgRating.toFixed(2) }}</div>
+        <div>Average rating: {{ stats.avgRating > 0 ? stats.avgRating.toFixed(2) : '—' }}</div>
     </fieldset>
 </template>
 
