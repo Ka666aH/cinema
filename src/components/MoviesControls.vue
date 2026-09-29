@@ -48,79 +48,49 @@ const isFormOpen = ref(false)
 <template>
     <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
     <section class="controls">
-        <div class="add-stats-wrap">
-            <BaseButton @click="isFormOpen = true">
-                <h2>Add movie</h2>
-            </BaseButton>
-            <MovieStats :movies="movies" />
-        </div>
-        <div class="display-controls-wrap">
-            <label class="search-wrap">
-                Search
-                <BaseInput class="search" v-model="search" />
-            </label>
-            <div class="filter-sort">
-                <div class="filters">
-                    <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" :direction="'column'" />
-                    <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" :direction="'column'" />
+        <BaseButton @click="isFormOpen = true">
+            <h2>Add movie</h2>
+        </BaseButton>
+        <MovieStats :movies="movies" />
+        <label class="search-wrap">
+            Search
+            <BaseInput v-model="search" />
+        </label>
+        <div class="filter-sort">
+            <BaseRadio v-model="statusFilter" name="status" :options="statusOptions" direction="column" />
+            <BaseRadio v-model="ratingFilter" name="rating" :options="ratingOptions" direction="column" />
+            <label>
+                Sort
+                <div>
+                    <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
+                    <BaseSelect v-model="sortKey" name="sortOptions" :options="sortOptions" />
                 </div>
-                <label>
-                    Sort
-                    <div class="sort-wrap">
-                        <BaseButton @click="toggleSortOrder">{{ sortOrder === 'asc' ? '↑' : '↓' }}</BaseButton>
-                        <BaseSelect v-model="sortKey" name="sortOptions" :options="sortOptions" />
-                    </div>
-                </label>
-            </div>
+            </label>
         </div>
     </section>
 </template>
 
 <style scoped>
 .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.add-stats-wrap {
-    display: flex;
-    justify-content: space-between;
-}
-
-.display-controls-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: start;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr minmax(300px, auto);
     gap: 20px;
 }
 
 .search-wrap {
-    flex: 1 1 300px;
-    min-width: 300px;
-}
-
-.search {
-    width: 100%;
-}
-
-.filters {
     display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .filter-sort {
     display: flex;
     gap: 20px;
-    flex: 0 0 auto;
 }
 
-label {
-    display: flex;
-    flex-direction: column;
-}
-
-.sort-wrap {
-    display: flex;
+@media (max-width: 900px) {
+    .controls {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
