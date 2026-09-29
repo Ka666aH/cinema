@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { RatingFilter, StatusFilter } from '@/types/Filters';
 import type { Option } from '@/types/Option.ts';
 import type { SortOrder } from '@/types/SortOrder';
-import MovieForm from './MovieForm.vue';
-import { ref } from 'vue';
 import type { Movie } from '@/types/Movie.ts';
+import MovieForm from './MovieForm.vue';
+import MovieStats from './MovieStats.vue';
+
+const props = defineProps<{
+    movies: Movie[]
+}>()
 
 const emit = defineEmits<{
     addMovie: [movie: Movie]
@@ -41,11 +46,14 @@ const isFormOpen = ref(false)
 </script>
 
 <template>
+    <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
     <section class="controls">
-        <BaseButton @click="isFormOpen = true">
-            <h2>Add movie</h2>
-        </BaseButton>
-        <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
+        <div class="add-stats-wrap">
+            <BaseButton @click="isFormOpen = true">
+                <h2>Add movie</h2>
+            </BaseButton>
+            <MovieStats :movies="movies" />
+        </div>
         <div class="display-controls-wrap">
             <label class="search-wrap">
                 Search
@@ -73,6 +81,11 @@ const isFormOpen = ref(false)
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.add-stats-wrap {
+    display: flex;
+    justify-content: space-between;
 }
 
 .display-controls-wrap {
