@@ -47,5 +47,7 @@ const stats = computed(() => {
     grid-template-rows: repeat(3, auto);
     grid-auto-flow: column;
     gap: 4px 16px;
+    border-color: var(--color-element-bg-focus);
+    border-radius: 10px;
 }
 </style>
