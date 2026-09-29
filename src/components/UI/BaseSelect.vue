@@ -18,8 +18,6 @@ const props = defineProps<{
 
 <style scoped>
 select {
-    color: inherit;
-    font: inherit;
     background: inherit;
     border: none;
     appearance: none;

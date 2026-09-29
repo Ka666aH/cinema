@@ -1,6 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-family-heading: 'Playfair Display', Georgia, serif;
+}
+
 body {
+    font-family: var(--font-family-base);
     background-color: var(--color-bg);
     color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
 }
 
 *, *::before, *::after {
