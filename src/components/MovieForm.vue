@@ -34,66 +34,105 @@ function clear() {
     genre.value = ''
     posterURL.value = ''
 }
+
+const validationErrors = computed(() => {
+    const e: Record<string, string> = {}
+    const y: number = Number(year.value)
+
+    if (!title.value.trim()) e.title = 'Title required'
+    if (!year.value.trim()) e.year = 'Year required'
+    else if (isNaN(y)) e.year = 'Year must be a number'
+    else if (y < 1895 || y > 2030) e.year = 'Year must be in a range between 1895 and 2030'
+    if (!genre.value.trim()) e.genre = 'Genre required'
+
+    return e
+})
+
+const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
 </script>
 
 <template>
     <BaseDialog :open="isOpen" @close="isOpen = false">
-        <h2>Movie adding form</h2>
-        <div class="window">
-            <form class="form" @submit.prevent="onSubmit">
-                <div class="form-wrap">
+        <h2 class="header">Movie adding form</h2>
+        <form class="form" @submit.prevent="onSubmit">
+            <div class="form__wrap">
+                <div class="form__data">
                     <div class="form__fields">
-                        <label>Title
-                            <BaseInput v-model="title" />
-                        </label>
-                        <label>Year
-                            <BaseInput v-model="year" />
-                        </label>
-                        <label>Genre
-                            <BaseInput v-model="genre" />
-                        </label>
-                        <label>Poster URL
-                            <BaseInput v-model="posterURL" />
-                        </label>
+                        <label for="titleInput">Title</label>
+                        <BaseInput id="titleInput" v-model="title" />
+                        <label for="yearInput">Year</label>
+                        <BaseInput id="yearInput" v-model="year" />
+                        <label for="genreInput">Genre</label>
+                        <BaseInput id="genreInput" v-model="genre" />
+                        <label for="posterURLInput">Poster URL</label>
+                        <BaseInput id="posterURLInput" v-model="posterURL" />
                     </div>
-                    <div class="preview">
-                        <h3 class="preview__header">Movie card preview</h3>
-                        <MovieCard class="preview__card" :movie="movie" />
-                    </div>
+                    <ul class="form__errors" v-if="!isValid">
+                        <li class="form__error" v-for="(msg, field) in validationErrors" :key="field">{{ msg }}</li>
+                    </ul>
                 </div>
-                <div class="form__buttons">
-                    <BaseButton @click="clear">Clear</BaseButton>
-                    <div class="form__confirm-buttons">
-                        <BaseButton type="submit">Add</BaseButton>
-                        <BaseButton @click="isOpen = false">Cancel</BaseButton>
-                    </div>
+                <MovieCard class="form__preview" :movie="movie" inert />
+            </div>
+            <div class="form__buttons">
+                <BaseButton @click="clear">Clear</BaseButton>
+                <div class="form__confirm-buttons">
+                    <BaseButton type="submit" class="form__add-button" :disabled="!isValid">Add</BaseButton>
+                    <BaseButton @click="isOpen = false">Cancel</BaseButton>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </BaseDialog>
 </template>
 
 <style scoped>
-.window {
-    display: flex;
-    gap: 20px;
+.header {
+    margin-top: 0;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    min-width: 0;
 }
 
-.form-wrap {
+.form__wrap {
     display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
-.form__fields {
+.form__data {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.form__fields {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 12px;
+    align-items: center;
+}
+
+.form__errors {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form__error {
+    color: var(--color-error);
+    font-weight: bold;
+}
+
+.form__preview {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 .form__buttons {
@@ -106,17 +145,14 @@ function clear() {
     gap: 10px;
 }
 
-.preview {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+@media (orientation: landscape) and (min-width: 700px) {
+    .form__wrap {
+        flex-direction: row;
+        align-items: flex-start;
+    }
 
-.preview__header {
-    margin: 0;
-}
-
-.preview__card {
-    pointer-events: none;
+    .preview {
+        margin: 0;
+    }
 }
 </style>
