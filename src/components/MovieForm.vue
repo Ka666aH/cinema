@@ -52,7 +52,7 @@ const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
 </script>
 
 <template>
-    <BaseDialog :open="isOpen" @close="isOpen = false">
+    <BaseDialog class="dialog" :open="isOpen" @close="isOpen = false">
         <h2 class="header">Movie adding form</h2>
         <form class="form" @submit.prevent="onSubmit">
             <div class="form__wrap">
@@ -85,6 +85,9 @@ const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
 </template>
 
 <style scoped>
+.dialog{
+    background-color: var(--color-bg);
+}
 .header {
     margin-top: 0;
 }
