@@ -2,9 +2,7 @@
 import { computed, ref } from 'vue';
 import MoviesList from '@/components/MoviesList.vue';
 import MoviesControls from '@/components/MoviesControls.vue';
-import type { Movie, Rating, Status } from '@/types/Movie';
-import type { SortOrder } from '@/types/SortOrder';
-import type { RatingFilter, StatusFilter } from '@/types/Filters';
+import type { Movie, Rating, Status, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie';
 
 const movies = ref<Movie[]>(
     [

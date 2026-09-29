@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { RatingFilter, StatusFilter } from '@/types/Filters';
 import type { Option } from '@/types/Option.ts';
-import type { SortOrder } from '@/types/SortOrder';
-import type { Movie } from '@/types/Movie.ts';
+import type { Movie, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie.ts';
 import MovieForm from './MovieForm.vue';
 import MovieStats from './MovieStats.vue';
 
