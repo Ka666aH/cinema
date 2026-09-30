@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import MoviesList from '@/components/MoviesList.vue';
 import MoviesControls from '@/components/MoviesControls.vue';
 import type { Movie, Rating, Status, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie';
+import MovieStats from '@/components/MovieStats.vue';
 
 const movies = ref<Movie[]>(
     [
@@ -94,9 +95,12 @@ const removeMovie = (movieId: string) => movies.value = movies.value.filter(m =>
 
 <template>
     <div class="movie-wrap">
-        <MoviesControls :movies="movies" v-model:sortKey="sortKey" v-model:sortOrder="sortOrder"
-            v-model:statusFilter="statusFilter" v-model:ratingFilter="ratingFilter" v-model:search="search"
-            @add-movie="addMovie" />
+        <div class="controls-stats-wrap">
+            <MoviesControls class="controls" v-model:sortKey="sortKey" v-model:sortOrder="sortOrder"
+                v-model:statusFilter="statusFilter" v-model:ratingFilter="ratingFilter" v-model:search="search"
+                @add-movie="addMovie" />
+            <MovieStats class="stats" :movies="movies" />
+        </div>
         <MoviesList :movies="searched" @set-rating="setRating" @set-status="setStatus" @remove-movie="removeMovie" />
     </div>
 </template>
@@ -106,5 +110,29 @@ const removeMovie = (movieId: string) => movies.value = movies.value.filter(m =>
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.controls-stats-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "controls stats";
+    gap: 20px;
+}
+
+.controls {
+    grid-area: controls;
+}
+
+.stats {
+    grid-area: stats;
+}
+
+@media (max-width: 900px) {
+    .controls-stats-wrap {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "stats"
+            "controls";
+    }
 }
 </style>

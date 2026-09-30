@@ -3,11 +3,6 @@ import { ref } from 'vue';
 import type { Option } from '@/types/Option.ts';
 import type { Movie, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie.ts';
 import MovieForm from './MovieForm.vue';
-import MovieStats from './MovieStats.vue';
-
-const props = defineProps<{
-    movies: Movie[]
-}>()
 
 const emit = defineEmits<{
     addMovie: [movie: Movie]
@@ -46,10 +41,9 @@ const isFormOpen = ref(false)
 <template>
     <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
     <section class="controls">
-        <BaseButton @click="isFormOpen = true">
-            <h2>Add movie</h2>
+        <BaseButton class="add-button" @click="isFormOpen = true">
+            Add movie
         </BaseButton>
-        <MovieStats :movies="movies" />
         <label class="search-wrap">
             Search
             <BaseInput v-model="search" />
@@ -73,6 +67,11 @@ const isFormOpen = ref(false)
     display: grid;
     grid-template-columns: 1fr minmax(300px, auto);
     gap: 20px;
+}
+
+.add-button {
+    grid-column: 1 / -1;
+    font-size: 200%;
 }
 
 .search-wrap {
