@@ -31,7 +31,8 @@ const emit = defineEmits<{
 <style scoped>
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 320px));
+    justify-content: center;
     gap: 20px;
     list-style: none;
     padding: 0;
