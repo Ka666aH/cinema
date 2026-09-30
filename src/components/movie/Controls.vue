@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import type { Option } from '@/types/Option.ts';
 import type { Movie, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie.ts';
-import MovieForm from './MovieForm.vue';
+import Form from './Form.vue';
 
 const emit = defineEmits<{
     addMovie: [movie: Movie]
@@ -39,7 +39,7 @@ const isFormOpen = ref(false)
 </script>
 
 <template>
-    <MovieForm v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
+    <Form v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
     <section class="controls">
         <BaseButton class="add-button" @click="isFormOpen = true">
             Add movie

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import MovieCard from './MovieCard.vue';
 import type { Movie } from '@/types/Movie.ts';
+import Card from './Card.vue';
 
 const emit = defineEmits<{
     addMovie: [movie: Movie]
@@ -74,7 +74,7 @@ const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
                         <li class="form__error" v-for="(msg, field) in validationErrors" :key="field">{{ msg }}</li>
                     </ul>
                 </div>
-                <MovieCard class="form__preview" :movie="movie" inert />
+                <Card class="form__preview" :movie="movie" inert />
             </div>
             <div class="form__buttons">
                 <BaseButton @click="clear">Clear</BaseButton>

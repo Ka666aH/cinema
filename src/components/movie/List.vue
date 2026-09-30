@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Movie, Rating, Status } from '@/types/Movie';
-import MovieCard from '@/components/MovieCard.vue';
+import Card from './Card.vue';
 
 const props = defineProps<{
     movies: Movie[]
@@ -17,7 +17,7 @@ const emit = defineEmits<{
 <template>
     <TransitionGroup tag="ul" name="list" class="list">
         <li v-for="movie in movies" :key="movie.id" class="list-item">
-            <MovieCard :movie="movie" @set-rating="(value) => emit('setRating', movie.id, value)"
+            <Card :movie="movie" @set-rating="(value) => emit('setRating', movie.id, value)"
                 @set-status="(value) => emit('setStatus', movie.id, value)"
                 @remove-movie="emit('removeMovie', movie.id)" />
         </li>

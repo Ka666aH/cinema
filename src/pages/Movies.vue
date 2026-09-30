@@ -2,9 +2,9 @@
 import { computed, ref } from 'vue';
 import { movies, addMovie, removeMovie, setStatus, setRating } from '@/store/movies';
 import type { Movie, Rating, Status, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie';
-import MoviesControls from '@/components/MoviesControls.vue';
-import MovieStats from '@/components/MovieStats.vue';
-import MoviesList from '@/components/MoviesList.vue';
+import Controls from '@/components/movie/Controls.vue';
+import Stats from '@/components/movie/Stats.vue';
+import List from '@/components/movie/List.vue';
 
 const sortKey = ref('number')
 const sortOrder = ref<SortOrder>('asc')
@@ -45,12 +45,12 @@ const searched = computed(() => filtered.value.filter(m => m.title.toLowerCase()
 <template>
     <div class="movie-wrap">
         <div class="controls-stats-wrap">
-            <MoviesControls class="controls" v-model:sortKey="sortKey" v-model:sortOrder="sortOrder"
+            <Controls class="controls" v-model:sortKey="sortKey" v-model:sortOrder="sortOrder"
                 v-model:statusFilter="statusFilter" v-model:ratingFilter="ratingFilter" v-model:search="search"
                 @add-movie="addMovie" />
-            <MovieStats class="stats" :movies="movies" />
+            <Stats class="stats" :movies="movies" />
         </div>
-        <MoviesList :movies="searched" @set-rating="setRating" @set-status="setStatus" @remove-movie="removeMovie" />
+        <List :movies="searched" @set-rating="setRating" @set-status="setStatus" @remove-movie="removeMovie" />
     </div>
 </template>
 
