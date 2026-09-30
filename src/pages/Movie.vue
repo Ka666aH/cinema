@@ -33,7 +33,13 @@ function onRemove() {
     <div v-if="!movie" class="not-found">
         <h2>Movie is not found</h2>
     </div>
-    <Card v-else :movie="movie" @set-status="onSetStatus" @set-rating="onSetRating" @remove-movie="onRemove" />
+    <Card class="card-wrap" v-else :movie="movie" @set-status="onSetStatus" @set-rating="onSetRating"
+        @remove-movie="onRemove" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.card-wrap {
+    max-width: 360px;
+    margin: 20px auto;
+}
+</style>
