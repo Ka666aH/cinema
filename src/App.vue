@@ -1,12 +1,5 @@
-<script setup lang="ts">
-import Movies from './pages/Movies.vue';
-
-</script>
-
 <template>
   <main>
-    <Movies />
+    <router-view></router-view>
   </main>
 </template>
-
-<style scoped></style>

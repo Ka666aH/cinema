@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router/index.ts'
 import components from '@/components/UI'
 import '@/assets/styles/index.css'
 
@@ -9,4 +10,5 @@ Object.entries(components).forEach(([name, component]) => {
     app.component(name, component)
 })
 
+app.use(router)
 app.mount('#app')
