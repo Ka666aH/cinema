@@ -20,6 +20,7 @@ const emit = defineEmits<{
 
 <template>
     <article class="card">
+        <slot name="overlay" />
         <figure class="card__title-poster-wrap">
             <div class="card__poster-wrap">
                 <Poster :movie="movie" />
@@ -29,14 +30,15 @@ const emit = defineEmits<{
             </figcaption>
         </figure>
         <Genre :movie="movie" />
-        <Status :movie="movie" @set-status="(value) => emit('setStatus', value)" />
-        <Rating :movie="movie" @set-rating="(value) => emit('setRating', value)" />
-        <RemoveButton @remove-movie="emit('removeMovie')" />
+        <Status class="card__status" :movie="movie" @set-status="(value) => emit('setStatus', value)" />
+        <Rating class="card__rating" :movie="movie" @set-rating="(value) => emit('setRating', value)" />
+        <RemoveButton class="card__remove" @remove-movie="emit('removeMovie')" />
     </article>
 </template>
 
 <style scoped>
 .card {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -55,5 +57,11 @@ const emit = defineEmits<{
     width: 100%;
     overflow: hidden;
     border-radius: 8px 8px 0 0;
+}
+
+.card__status,
+.card__rating,
+.card__remove {
+    position: relative;
 }
 </style>

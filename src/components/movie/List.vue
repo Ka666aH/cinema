@@ -19,7 +19,11 @@ const emit = defineEmits<{
         <li v-for="movie in movies" :key="movie.id" class="list-item">
             <Card :movie="movie" @set-rating="(value) => emit('setRating', movie.id, value)"
                 @set-status="(value) => emit('setStatus', movie.id, value)"
-                @remove-movie="emit('removeMovie', movie.id)" />
+                @remove-movie="emit('removeMovie', movie.id)">
+                <template #overlay>
+                    <RouterLink class="card-overlay" :to="`/movies/${movie.id}`" :aria-label="`Open ${movie.title}`" />
+                </template>
+            </Card>
         </li>
     </TransitionGroup>
 </template>
@@ -39,6 +43,12 @@ const emit = defineEmits<{
     display: flex;
 }
 
+.list-link {
+    display: contents;
+    color: inherit;
+    text-decoration: none;
+}
+
 .list-enter-active {
     transition: opacity 1s ease, transform 1s ease;
 }
@@ -50,5 +60,10 @@ const emit = defineEmits<{
 
 .list-move {
     transition: transform 0.8s ease;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
 }
 </style>
