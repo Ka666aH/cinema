@@ -15,7 +15,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <TransitionGroup tag="ul" name="list" class="list">
+    <TransitionGroup tag="ul" name="list" class="list" >
         <li v-for="movie in movies" :key="movie.id" class="list-item">
             <Card :movie="movie" @set-rating="(value) => emit('setRating', movie.id, value)"
                 @set-status="(value) => emit('setStatus', movie.id, value)"
@@ -37,7 +37,6 @@ const emit = defineEmits<{
     list-style: none;
     padding: 0;
     margin: 0;
-    perspective: 10px;
 }
 
 .list-item {
@@ -56,7 +55,16 @@ const emit = defineEmits<{
 
 .list-enter-from {
     opacity: 0;
-    transform: translateZ(-1px);
+    transform: translateY(20px);
+}
+
+.list-leave-active {
+    transition: opacity .5s ease, transform .5s ease;
+}
+
+.list-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
 .list-move {
