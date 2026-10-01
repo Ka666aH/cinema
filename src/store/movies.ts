@@ -58,7 +58,8 @@ export const useMovieStore = defineStore('movies', () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(v))
     }, { deep: true })
 
-    const nextId = ref<number>(movies.value.length + 1)
+    const maxId = movies.value.reduce((max, m) => Math.max(max, Number(m.id)), 0)
+    const nextId = ref<number>(maxId + 1)
     function getNextId() { return nextId.value }
     function getMovie(id: Movie['id']) { return movies.value.find(m => m.id === id) }
     function addMovie(movie: Movie) {
