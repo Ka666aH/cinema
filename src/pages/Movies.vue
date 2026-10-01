@@ -6,14 +6,14 @@ import Controls from '@/components/movie/Controls.vue';
 import Stats from '@/components/movie/Stats.vue';
 import List from '@/components/movie/List.vue';
 
-const sortKey = ref('number')
+const sortKey = ref('id')
 const sortOrder = ref<SortOrder>('asc')
 const sorted = computed(() => {
     const dir = sortOrder.value === 'asc' ? 1 : -1
 
     return [...movies.value].sort((a, b) => {
         switch (sortKey.value) {
-            case 'number': return a.id.localeCompare(b.id) * dir
+            case 'id': return a.id.localeCompare(b.id) * dir
             case 'title': return a.title.localeCompare(b.title) * dir
             case 'date': return (a.year - b.year) * dir
             case 'rating': {

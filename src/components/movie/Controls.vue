@@ -15,7 +15,7 @@ const ratingFilter = defineModel<RatingFilter>('ratingFilter', { required: true 
 const search = defineModel<string>('search', { required: true })
 
 const sortOptions = [
-    { key: 'number', value: 'Number' },
+    { key: 'id', value: 'Id' },
     { key: 'title', value: 'Title' },
     { key: 'date', value: 'Release date' },
     { key: 'rating', value: 'Rating' },
