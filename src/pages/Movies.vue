@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useMovieStore } from '@/store/movies';
-import type { Movie, Rating, Status, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie';
+import type { Movie, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie';
 import Controls from '@/components/movie/Controls.vue';
 import Stats from '@/components/movie/Stats.vue';
 import List from '@/components/movie/List.vue';
@@ -15,7 +15,7 @@ const sorted = computed(() => {
 
     return [...movieStore.movies].sort((a, b) => {
         switch (sortKey.value) {
-            case 'id': return a.id.localeCompare(b.id) * dir
+            case 'id': return a.id.localeCompare(b.id, undefined, { numeric: true }) * dir
             case 'title': return a.title.localeCompare(b.title) * dir
             case 'date': return (a.year - b.year) * dir
             case 'rating': {
