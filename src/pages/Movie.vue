@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { movies, removeMovie, setRating, setStatus } from '@/store/movies'
+import { movies, getMovie, removeMovie, setRating, setStatus } from '@/store/movies'
 import Poster from '@/components/movie/Poster.vue'
 import Caption from '@/components/movie/Caption.vue'
 import Genre from '@/components/movie/Genre.vue'
@@ -13,7 +13,7 @@ import type { Rating as RatingType, Status as StatusType } from '@/types/Movie'
 const route = useRoute()
 const router = useRouter()
 
-const movie = computed(() => movies.value.find(m => m.id === route.params.id))
+const movie = computed(() => getMovie(route.params.id as string))
 
 function onSetStatus(value: StatusType) {
     if (!movie.value) return
