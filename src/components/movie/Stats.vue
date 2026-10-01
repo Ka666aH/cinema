@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Movie } from '@/types/Movie';
+import { useMovieStore } from '@/store/movies';
 import { computed } from 'vue';
 
-const props = defineProps<{
-    movies: Movie[]
-}>()
+const movieStore = useMovieStore()
+
 const stats = computed(() => {
-    const all = props.movies.length
+    const all = movieStore.movies.length
 
     let planned: number = 0;
     let watched: number = 0;
@@ -14,7 +14,7 @@ const stats = computed(() => {
     let unrated: number = 0;
     let totalRating: number = 0;
 
-    for (const m of props.movies) {
+    for (const m of movieStore.movies) {
         if (m.status === 'planned') planned++
         else watched++
         if (m.rating === null) unrated++

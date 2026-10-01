@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { Movie } from '@/types/Movie';
-
 const props = defineProps<{
-    movie: Movie
+    genre: string
 }>()
 </script>
 
 <template>
-    <div class="genre">{{ movie.genre }}</div>
+    <div class="genre">{{ genre }}</div>
 </template>
 
 <style scoped>

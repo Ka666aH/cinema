@@ -4,10 +4,6 @@ import type { Option } from '@/types/Option.ts';
 import type { Movie, SortOrder, RatingFilter, StatusFilter } from '@/types/Movie.ts';
 import Form from './Form.vue';
 
-const emit = defineEmits<{
-    addMovie: [movie: Movie]
-}>()
-
 const sortKey = defineModel<string>('sortKey', { required: true })
 const sortOrder = defineModel<SortOrder>('sortOrder', { required: true })
 const statusFilter = defineModel<StatusFilter>('statusFilter', { required: true })
@@ -39,7 +35,7 @@ const isFormOpen = ref(false)
 </script>
 
 <template>
-    <Form v-model="isFormOpen" @add-movie="(movie) => emit('addMovie', movie)" />
+    <Form v-model="isFormOpen"/>
     <section class="controls">
         <BaseButton class="add-button" @click="isFormOpen = true">
             Add movie

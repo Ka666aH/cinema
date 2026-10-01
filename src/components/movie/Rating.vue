@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { Movie, Rating } from '@/types/Movie';
+import type { Rating, Status } from '@/types/Movie';
 
 const props = defineProps<{
-    movie: Movie
+    status: Status
+    rating: Rating
 }>()
 
 const emit = defineEmits<{
@@ -13,14 +14,14 @@ const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 </script>
 
 <template>
-    <div class="rating" v-if="movie.status === 'watched'">
+    <div class="rating" v-if="status === 'watched'">
         <div>
-            <button class="star" v-for="rating in ratings" :key="rating" type="button"
-                :class="{ 'star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
+            <button class="star" v-for="r in ratings" :key="r" type="button"
+                :class="{ 'star--active': r <= (rating ?? 0) }" @click="emit('setRating', r)">
                 ★
             </button>
         </div>
-        <BaseButton v-if="movie.rating !== null" @click="emit('setRating', null)">Clear</BaseButton>
+        <BaseButton v-if="rating !== null" @click="emit('setRating', null)">Clear</BaseButton>
     </div>
 </template>
 

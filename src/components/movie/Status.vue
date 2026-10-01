@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Movie, Status } from '@/types/Movie';
+import type { Status } from '@/types/Movie';
 
 const props = defineProps<{
-    movie: Movie
+    status: Status
 }>()
 const emit = defineEmits<{
     setStatus: [value: Status]
@@ -11,9 +11,9 @@ const emit = defineEmits<{
 
 <template>
     <button class="status" :class="{
-        'status--planned': movie.status === 'planned',
-        'status--watched': movie.status === 'watched',
-    }" @click="emit('setStatus', movie.status === 'planned' ? 'watched' : 'planned')">{{ movie.status }}</button>
+        'status--planned': status === 'planned',
+        'status--watched': status === 'watched',
+    }" @click="emit('setStatus', status === 'planned' ? 'watched' : 'planned')">{{ status }}</button>
 </template>
 
 <style scoped>

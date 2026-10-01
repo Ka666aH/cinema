@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { movies, getMovie, removeMovie, setRating, setStatus } from '@/store/movies'
+import { useMovieStore } from '@/store/movies'
 import Poster from '@/components/movie/Poster.vue'
 import Caption from '@/components/movie/Caption.vue'
 import Genre from '@/components/movie/Genre.vue'
@@ -12,20 +12,20 @@ import type { Rating as RatingType, Status as StatusType } from '@/types/Movie'
 
 const route = useRoute()
 const router = useRouter()
-
-const movie = computed(() => getMovie(route.params.id as string))
+const movieStore = useMovieStore()
+const movie = computed(() => movieStore.getMovie(route.params.id as string))
 
 function onSetStatus(value: StatusType) {
     if (!movie.value) return
-    setStatus(movie.value.id, value)
+    movieStore.setStatus(movie.value.id, value)
 }
 function onSetRating(value: RatingType) {
     if (!movie.value) return
-    setRating(movie.value.id, value)
+    movieStore.setRating(movie.value.id, value)
 }
 function onRemove() {
     if (!movie.value) return
-    removeMovie(movie.value.id)
+    movieStore.removeMovie(movie.value.id)
     router.push('/movies')
 }
 </script>
@@ -40,16 +40,16 @@ function onRemove() {
 
         <article v-else class="movie">
             <div class="movie__poster">
-                <Poster :movie="movie" />
+                <Poster :title="movie.title" :year="movie.year" :poster-u-r-l="movie.posterURL" />
             </div>
 
             <div class="movie__info">
-                <Caption :movie="movie" />
-                <Genre :movie="movie" />
+                <Caption :id="movie.id" :title="movie.title" :year="movie.year" />
+                <Genre :genre="movie.genre" />
 
                 <div class="movie__actions">
-                    <Status :movie="movie" @set-status="onSetStatus" />
-                    <Rating :movie="movie" @set-rating="onSetRating" />
+                    <Status :status="movie.status" @set-status="onSetStatus" />
+                    <Rating :status="movie.status" :rating="movie.rating" @set-rating="onSetRating" />
                 </div>
 
                 <RemoveButton class="movie__remove" @remove-movie="onRemove" />

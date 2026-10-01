@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { Movie } from '@/types/Movie'
-
 const props = defineProps<{
-    movie: Movie
+    id: string
+    title: string
+    year: number
 }>()
 </script>
 
 <template>
     <div class="caption">
-        <span class="caption__id">{{ movie.id }}</span>
-        <span class="caption__title">{{ movie.title }}</span>
-        <span class="caption__year">{{ movie.year }}</span>
+        <span class="caption__id">{{ id }}</span>
+        <span class="caption__title">{{ title }}</span>
+        <span class="caption__year">{{ year }}</span>
     </div>
 </template>
 

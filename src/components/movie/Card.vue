@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMovieStore } from '@/store/movies.ts';
 import type { Movie, Status as StatusType, Rating as RatingType } from '@/types/Movie';
 import Poster from './Poster.vue';
 import Caption from './Caption.vue';
@@ -10,12 +11,8 @@ import RemoveButton from './RemoveButton.vue';
 const props = defineProps<{
     movie: Movie
 }>()
-const emit = defineEmits<{
-    setStatus: [value: StatusType]
-    setRating: [value: RatingType]
-    removeMovie: []
-}>()
 
+const movieStore = useMovieStore()
 </script>
 
 <template>
@@ -23,16 +20,18 @@ const emit = defineEmits<{
         <slot name="overlay" />
         <figure class="card__title-poster-wrap">
             <div class="card__poster-wrap">
-                <Poster :movie="movie" />
+                <Poster :title="movie.title" :year="movie.year" :poster-u-r-l="movie.posterURL" />
             </div>
             <figcaption>
-                <Caption :movie="movie" />
+                <Caption :id="movie.id" :title="movie.title" :year="movie.year" />
             </figcaption>
         </figure>
-        <Genre :movie="movie" />
-        <Status class="card__status" :movie="movie" @set-status="(value) => emit('setStatus', value)" />
-        <Rating class="card__rating" :movie="movie" @set-rating="(value) => emit('setRating', value)" />
-        <RemoveButton class="card__remove" @remove-movie="emit('removeMovie')" />
+        <Genre :genre="movie.genre" />
+        <Status class="card__status" :status="movie.status"
+            @set-status="(value) => movieStore.setStatus(movie.id, value)" />
+        <Rating class="card__rating" :status="movie.status" :rating="movie.rating"
+            @set-rating="(value) => movieStore.setRating(movie.id, value)" />
+        <RemoveButton class="card__remove" @remove-movie="movieStore.removeMovie(movie.id)" />
     </article>
 </template>
 

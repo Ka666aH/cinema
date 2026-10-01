@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useMovieStore } from '@/store/movies.ts';
 import type { Movie } from '@/types/Movie.ts';
 import Card from './Card.vue';
 
-const emit = defineEmits<{
-    addMovie: [movie: Movie]
-}>()
+const movieStore = useMovieStore()
 
 const isOpen = defineModel<boolean>({ required: true })
-const idPlaceholder = '????????-????-????-????-????????????'
-const id = ref<string>(idPlaceholder)
 const title = ref<string>('')
 const year = ref<string>('')
 const genre = ref<string>('')
 const posterURL = ref<string>('')
 
 const movie = computed<Movie>(() => ({
-    id: id.value,
+    id: (movieStore.movies.length + 1).toString(),
     posterURL: posterURL.value,
     title: title.value,
     year: Number(year.value),
@@ -26,12 +23,10 @@ const movie = computed<Movie>(() => ({
 }))
 
 function onSubmit() {
-    id.value = crypto.randomUUID()
-    emit('addMovie', movie.value)
+    movieStore.addMovie(movie.value)
     clear()
 }
 function clear() {
-    id.value = idPlaceholder
     title.value = ''
     year.value = ''
     genre.value = ''
