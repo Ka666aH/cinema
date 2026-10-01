@@ -42,8 +42,13 @@ export const useMovieStore = defineStore('movies', () => {
             }
         ]
     )
+    const nextId = ref<number>(movies.value.length + 1)
+    function getNextId() { return nextId.value }
     function getMovie(id: Movie['id']) { return movies.value.find(m => m.id === id) }
-    function addMovie(movie: Movie) { movies.value.push(movie) }
+    function addMovie(movie: Movie) {
+        movies.value.push(movie)
+        nextId.value++
+    }
     function removeMovie(id: Movie['id']) { movies.value = movies.value.filter(m => m.id !== id) }
     function setStatus(id: Movie['id'], value: Status) {
         const m = getMovie(id)
@@ -53,5 +58,5 @@ export const useMovieStore = defineStore('movies', () => {
         const m = getMovie(id)
         if (m) m.rating = value
     }
-    return { movies, getMovie, addMovie, removeMovie, setStatus, setRating }
+    return { movies, getNextId, getMovie, addMovie, removeMovie, setStatus, setRating }
 })
