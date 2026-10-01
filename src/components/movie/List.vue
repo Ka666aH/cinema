@@ -43,12 +43,6 @@ const emit = defineEmits<{
     display: flex;
 }
 
-.list-link {
-    display: contents;
-    color: inherit;
-    text-decoration: none;
-}
-
 .list-enter-active {
     transition: opacity 1s ease, transform 1s ease;
 }
