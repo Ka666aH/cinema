@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index.ts'
+import { createPinia } from 'pinia'
 import components from '@/components/UI'
 import '@/assets/styles/index.css'
 
@@ -11,4 +12,5 @@ Object.entries(components).forEach(([name, component]) => {
 })
 
 app.use(router)
+app.use(createPinia())
 app.mount('#app')
