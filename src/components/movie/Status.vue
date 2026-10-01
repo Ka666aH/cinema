@@ -10,14 +10,14 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <button class="card__status" :class="{
-        'card__status--planned': movie.status === 'planned',
-        'card__status--watched': movie.status === 'watched',
+    <button class="status" :class="{
+        'status--planned': movie.status === 'planned',
+        'status--watched': movie.status === 'watched',
     }" @click="emit('setStatus', movie.status === 'planned' ? 'watched' : 'planned')">{{ movie.status }}</button>
 </template>
 
 <style scoped>
-.card__status {
+.status {
     border: solid 1px black;
     cursor: pointer;
     align-self: flex-start;
@@ -26,23 +26,23 @@ const emit = defineEmits<{
     text-transform: capitalize;
 }
 
-.card__status--planned {
+.status--planned {
     background-color: var(--color-card-status-planned);
 }
 
-.card__status--watched {
+.status--watched {
     background-color: var(--color-card-status-watched);
 }
 
-.card__status:hover {
+.status:hover {
     transition: background-color .5s;
 }
 
-.card__status--planned:hover {
+.status--planned:hover {
     background-color: var(--color-card-status-watched);
 }
 
-.card__status--watched:hover {
+.status--watched:hover {
     background-color: var(--color-card-status-planned);
 }
 </style>

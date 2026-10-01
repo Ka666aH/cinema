@@ -7,11 +7,11 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="card__genre">{{ movie.genre }}</div>
+    <div class="genre">{{ movie.genre }}</div>
 </template>
 
 <style scoped>
-.card__genre {
+.genre {
     align-self: flex-start;
     background-color: var(--color-card-bg-genre);
     padding: 5px;

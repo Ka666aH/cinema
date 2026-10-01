@@ -13,10 +13,10 @@ const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 </script>
 
 <template>
-    <div class="card__rating" v-if="movie.status === 'watched'">
-        <div class="card__stars">
-            <button class="card__star" v-for="rating in ratings" :key="rating" type="button"
-                :class="{ 'card__star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
+    <div class="rating" v-if="movie.status === 'watched'">
+        <div>
+            <button class="star" v-for="rating in ratings" :key="rating" type="button"
+                :class="{ 'star--active': rating <= (movie.rating ?? 0) }" @click="emit('setRating', rating)">
                 ★
             </button>
         </div>
@@ -25,14 +25,14 @@ const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 </template>
 
 <style scoped>
-.card__rating {
+.rating {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     column-gap: 20px;
 }
 
-.card__star {
+.star {
     border: none;
     padding: 0px;
     background-color: transparent;
@@ -41,12 +41,12 @@ const ratings: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     cursor: pointer;
 }
 
-.card__star:hover {
+.star:hover {
     transition: transform .25s;
     transform: scale(1.25);
 }
 
-.card__star--active {
+.star--active {
     color: var(--color-card-star-active);
 }
 </style>

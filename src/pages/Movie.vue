@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { movies, removeMovie, setStatus, setRating } from '@/store/movies';
-import type { Rating, Status } from '@/types/Movie';
-import Card from '@/components/movie/Card.vue';
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { movies, removeMovie, setRating, setStatus } from '@/store/movies'
+import Poster from '@/components/movie/Poster.vue'
+import Caption from '@/components/movie/Caption.vue'
+import Genre from '@/components/movie/Genre.vue'
+import Status from '@/components/movie/Status.vue'
+import Rating from '@/components/movie/Rating.vue'
+import RemoveButton from '@/components/movie/RemoveButton.vue'
+import type { Rating as RatingType, Status as StatusType } from '@/types/Movie'
 
 const route = useRoute()
 const router = useRouter()
 
-const movie = computed(() =>
-    movies.value.find(m => m.id === route.params.id)
-)
+const movie = computed(() => movies.value.find(m => m.id === route.params.id))
 
-function onSetStatus(value: Status) {
+function onSetStatus(value: StatusType) {
     if (!movie.value) return
     setStatus(movie.value.id, value)
 }
-
-function onSetRating(value: Rating) {
+function onSetRating(value: RatingType) {
     if (!movie.value) return
     setRating(movie.value.id, value)
 }
@@ -29,17 +31,103 @@ function onRemove() {
 </script>
 
 <template>
-    <RouterLink to="/movies">← Back to list</RouterLink>
-    <div v-if="!movie" class="not-found">
-        <h2>Movie is not found</h2>
+    <div class="page">
+        <RouterLink to="/movies" class="page__back">← Back to list</RouterLink>
+
+        <div v-if="!movie" class="not-found">
+            <h2>Movie is not found</h2>
+        </div>
+
+        <article v-else class="movie">
+            <div class="movie__poster">
+                <Poster :movie="movie" />
+            </div>
+
+            <div class="movie__info">
+                <Caption :movie="movie" />
+                <Genre :movie="movie" />
+
+                <div class="movie__actions">
+                    <Status :movie="movie" @set-status="onSetStatus" />
+                    <Rating :movie="movie" @set-rating="onSetRating" />
+                </div>
+
+                <RemoveButton class="movie__remove" @remove-movie="onRemove" />
+            </div>
+        </article>
     </div>
-    <Card class="card-wrap" v-else :movie="movie" @set-status="onSetStatus" @set-rating="onSetRating"
-        @remove-movie="onRemove" />
 </template>
 
 <style scoped>
-.card-wrap {
-    max-width: 360px;
-    margin: 20px auto;
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page__back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: inherit;
+    text-decoration: none;
+    opacity: .7;
+}
+
+.page__back:hover {
+    opacity: 1;
+}
+
+.movie {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    padding: 30px;
+    background-color: var(--color-card-bg);
+    border-radius: 20px;
+}
+
+.movie__poster {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.movie__info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 2rem;
+}
+
+.movie__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.movie__remove {
+    margin-top: auto;
+}
+
+@media (max-width: 720px) {
+    .movie {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .movie__poster {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .movie__info {
+        align-items: center;
+    }
+
+    .movie__actions {
+        align-items: center;
+    }
 }
 </style>

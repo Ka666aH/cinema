@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Movie } from '@/types/Movie';
+import type { Movie } from '@/types/Movie'
 
 const props = defineProps<{
     movie: Movie
@@ -7,31 +7,44 @@ const props = defineProps<{
 </script>
 
 <template>
-    <span class="card__id">{{ movie.id }}</span>
-    <span class="card__title">{{ movie.title }}</span>
-    <span class="card__year">{{ movie.year }}</span>
+    <div class="caption">
+        <span class="caption__id">{{ movie.id }}</span>
+        <span class="caption__title">{{ movie.title }}</span>
+        <span class="caption__year">{{ movie.year }}</span>
+    </div>
 </template>
 
 <style scoped>
-.card__id {
+.caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.caption__id {
     color: var(--color-card-id);
     margin-right: 10px;
 }
 
-.card__id::before {
+.caption__id::before {
     content: '#';
 }
 
-.card__title {
-    font-size: large;
+.caption__title {
+    font-size: 120%;
     font-weight: bold;
 }
 
-.card__year::before {
+.caption__year {
+    font-size: 110%;
+    opacity: .7;
+}
+
+.caption__year::before {
     content: '(';
 }
 
-.card__year::after {
+.caption__year::after {
     content: ')';
 }
 </style>

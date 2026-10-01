@@ -5,11 +5,11 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <BaseButton class="card__remove-button" @click="emit('removeMovie')">Remove movie</BaseButton>
+    <BaseButton class="remove-button" @click="emit('removeMovie')">Remove movie</BaseButton>
 </template>
 
 <style scoped>
-.card__remove-button {
+.remove-button {
     margin-top: auto;
 }
 </style>

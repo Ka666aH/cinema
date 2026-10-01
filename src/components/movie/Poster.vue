@@ -14,11 +14,11 @@ watch(() => props.movie.posterURL, () => isError.value = false)
 </script>
 
 <template>
-    <img class="card__poster" :src="posterURL" :alt="`${movie.title}(${movie.year}) poster`" @error="onError">
+    <img class="poster" :src="posterURL" :alt="`${movie.title}(${movie.year}) poster`" @error="onError">
 </template>
 
 <style scoped>
-.card__poster {
+.poster {
     width: 100%;
     height: 100%;
     object-fit: cover;
