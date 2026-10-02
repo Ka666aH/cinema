@@ -2,15 +2,24 @@ import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { Movie, Rating, Status } from '@/types/Movie'
 
-const STORAGE_KEY = 'movies'
+const STORAGE_KEY = 'movies.v1'
 
 function loadMovies(): Movie[] {
     try {
         const raw = localStorage.getItem(STORAGE_KEY)
-        return raw ? JSON.parse(raw) : []
+        if (!raw) return []
+        const parsed = JSON.parse(raw)
+        if (!Array.isArray(parsed)) return []
+        return parsed.filter(isMovie)
     } catch {
         return []
     }
+}
+
+function isMovie(x: unknown): x is Movie {
+    return typeof x === 'object' && x !== null
+        && typeof (x as Movie).id === 'string'
+        && typeof (x as Movie).title === 'string'
 }
 
 export const useMovieStore = defineStore('movies', () => {
