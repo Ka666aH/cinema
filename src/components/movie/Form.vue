@@ -13,7 +13,7 @@ const genre = ref<string>('')
 const posterURL = ref<string>('')
 
 const movie = computed<Movie>(() => ({
-    id: movieStore.getNextId().toString(),
+    id: movieStore.nextId.toString(),
     posterURL: posterURL.value,
     title: title.value,
     year: Number(year.value),
