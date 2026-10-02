@@ -16,7 +16,8 @@ function loadMovies(): Movie[] {
 export const useMovieStore = defineStore('movies', () => {
     const movies = ref<Movie[]>(loadMovies())
     watch(movies, (v) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(v))
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)) }
+        catch { }
     }, { deep: true })
 
     const maxId = movies.value.reduce((max, m) => Math.max(max, Number(m.id)), 0)
