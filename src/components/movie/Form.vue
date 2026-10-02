@@ -152,9 +152,5 @@ const isValid = computed(() => Object.keys(validationErrors.value).length === 0)
         flex-direction: row;
         align-items: flex-start;
     }
-
-    .preview {
-        margin: 0;
-    }
 }
 </style>
