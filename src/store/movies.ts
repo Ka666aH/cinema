@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import type { Movie, Rating, Status } from '@/types/Movie'
+import { DEFAULT_RATING, DEFAULT_STATUS, type Movie, type MovieDraft, type Rating, type Status } from '@/types/Movie'
 
 const STORAGE_KEY = 'movies.v1'
 
@@ -11,9 +11,7 @@ function loadMovies(): Movie[] {
         const parsed = JSON.parse(raw)
         if (!Array.isArray(parsed)) return []
         return parsed.filter(isMovie)
-    } catch {
-        return []
-    }
+    } catch { return [] }
 }
 
 function isMovie(x: unknown): x is Movie {
@@ -32,9 +30,21 @@ export const useMovieStore = defineStore('movies', () => {
     const maxId = movies.value.reduce((max, m) => Math.max(max, Number(m.id)), 0)
     const _nextId = ref<number>(maxId + 1)
     const nextId = computed(() => _nextId.value)
+
     function getMovie(id: Movie['id']) { return movies.value.find(m => m.id === id) }
-    function addMovie(movie: Movie) {
-        movies.value.push(movie)
+    function createMovie(draft: MovieDraft): Movie {
+        return {
+            id: nextId.value.toString(),
+            posterURL: draft.posterURL,
+            title: draft.title,
+            year: draft.year,
+            genre: draft.genre,
+            status: DEFAULT_STATUS,
+            rating: DEFAULT_RATING
+        }
+    }
+    function addMovie(draft: MovieDraft) {
+        movies.value.push(createMovie(draft))
         _nextId.value++
     }
     function removeMovie(id: Movie['id']) { movies.value = movies.value.filter(m => m.id !== id) }
@@ -46,5 +56,5 @@ export const useMovieStore = defineStore('movies', () => {
         const m = getMovie(id)
         if (m) m.rating = value
     }
-    return { movies, nextId, getMovie, addMovie, removeMovie, setStatus, setRating }
+    return { movies, nextId, getMovie, createMovie, addMovie, removeMovie, setStatus, setRating }
 })

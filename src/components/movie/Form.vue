@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useMovieStore } from '@/store/movies.ts';
-import type { Movie } from '@/types/Movie.ts';
+import { type Movie, type MovieDraft } from '@/types/Movie.ts';
 import Card from './Card.vue';
 
 const movieStore = useMovieStore()
@@ -12,20 +12,19 @@ const year = ref<string>('')
 const genre = ref<string>('')
 const posterURL = ref<string>('')
 
-const movie = computed<Movie>(() => ({
-    id: movieStore.nextId.toString(),
+const draft = computed<MovieDraft>(() => ({
     posterURL: posterURL.value,
     title: title.value,
     year: Number(year.value),
     genre: genre.value,
-    status: 'planned',
-    rating: null,
 }))
+const movie = computed<Movie>(() => movieStore.createMovie(draft.value))
 
 function onSubmit() {
-    movieStore.addMovie(movie.value)
+    movieStore.addMovie(draft.value)
     clear()
 }
+
 function clear() {
     title.value = ''
     year.value = ''
