@@ -16,7 +16,7 @@ interface SwapiResponse {
     previous: string | null
     results: SwapiMovie[]
 }
-export function useFilmSearch() {
+export function useMovieSearch() {
     const loading = ref(false)
     const error = ref<string | null>(null)
     const data = ref<MovieDraft[]>([])
