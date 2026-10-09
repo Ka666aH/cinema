@@ -1,0 +1,21 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--color-card-bg);
+    padding: 20px;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+.card__title-poster-wrap {
+    margin: 0;
+}
+
+.card__poster-wrap {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
