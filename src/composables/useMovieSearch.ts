@@ -25,14 +25,15 @@ export function useMovieSearch() {
     async function search(query: string) {
         const q = query.trim()
         if (!q) return
-        if (controller) controller.abort()
-        controller = new AbortController()
+        const c = new AbortController()
+        controller?.abort()
+        controller = c
         loading.value = true
         error.value = null
 
         try {
             const url = `${BASE_URL}?search=${encodeURIComponent(q)}`
-            const response = await fetch(url, { signal: controller.signal })
+            const response = await fetch(url, { signal: c.signal })
             if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`)
             const responseData = await response.json() as SwapiResponse
             data.value = responseData.results.map(m => ({
@@ -42,10 +43,10 @@ export function useMovieSearch() {
                 genre: 'Star Wars',
             }))
         } catch (e) {
-            if (controller.signal.aborted) return
+            if (c.signal.aborted) return
             error.value = e instanceof Error ? e.message : 'Network error'
             data.value = []
-        } finally { if (!controller.signal.aborted) loading.value = false }
+        } finally { if (!c.signal.aborted) loading.value = false }
     }
     return { loading, error, data, search }
 }
