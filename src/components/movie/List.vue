@@ -21,41 +21,7 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-.list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 330px));
-    justify-content: center;
-    gap: 20px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.list-item {
-    display: flex;
-}
-
-.list-enter-active {
-    transition: opacity 1s ease, transform 1s ease;
-}
-
-.list-enter-from {
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.list-leave-active {
-    transition: opacity .5s ease, transform .5s ease;
-}
-
-.list-leave-to {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
-.list-move {
-    transition: transform 0.8s ease;
-}
+@import '@/assets/styles/list.css';
 
 .card-overlay {
     position: absolute;
