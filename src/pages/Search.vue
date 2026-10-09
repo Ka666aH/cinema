@@ -2,8 +2,8 @@
 import { computed, ref } from 'vue'
 import { useMovieSearch } from '@/composables/useMovieSearch'
 import { useMovieStore } from '@/store/movies'
-import SearchControls from '@/components/movie/SearchControls.vue'
-import SearchList from '@/components/movie/SearchList.vue'
+import Controls from '@/components/movie/search/Controls.vue'
+import List from '@/components/movie/search/List.vue'
 import type { MovieDraft } from '@/types/Movie'
 
 const { loading, error, data, search } = useMovieSearch()
@@ -26,12 +26,12 @@ function onAdd(draft: MovieDraft) {
 
 <template>
     <div class="search-page">
-        <SearchControls @search="onSearch" />
+        <Controls @search="onSearch" />
         <p v-if="error" class="state state--error">Network error: {{ error }}</p>
         <p v-else-if="isQueryEmpty" class="state">Start searching</p>
         <p v-else-if="loading" class="state">Loading…</p>
         <p v-else-if="filtered.length === 0" class="state">Nothing found</p>
-        <SearchList v-else :drafts="filtered" @add="onAdd" />
+        <List v-else :drafts="filtered" @add="onAdd" />
     </div>
 </template>
 

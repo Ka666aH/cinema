@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MovieDraft } from '@/types/Movie'
-import SearchCard from './SearchCard.vue'
+import Card from './Card.vue'
 
 defineProps<{
     drafts: MovieDraft[]
@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
     <TransitionGroup tag="ul" name="list" class="list">
         <li v-for="(draft, i) in drafts" :key="i" class="list-item">
-            <SearchCard :draft="draft" @add="emit('add', draft)" />
+            <Card :draft="draft" @add="emit('add', draft)" />
         </li>
     </TransitionGroup>
 </template>

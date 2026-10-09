@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { MovieDraft } from '@/types/Movie'
-import Poster from './Poster.vue'
-import Caption from './Caption.vue'
-import Genre from './Genre.vue'
+import Poster from '../Poster.vue';
+import Caption from '../Caption.vue';
+import Genre from '../Genre.vue';
 
 defineProps<{ draft: MovieDraft }>()
 const emit = defineEmits<{ add: [] }>()
