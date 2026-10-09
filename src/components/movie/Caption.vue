@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-    id: string
+    id?: string
     title: string
     year: number
 }>()
@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
     <div class="caption">
-        <span class="caption__id">{{ id }}</span>
+        <span v-if="id" class="caption__id">{{ id }}</span>
         <span class="caption__title">{{ title }}</span>
         <span class="caption__year">{{ year }}</span>
     </div>
