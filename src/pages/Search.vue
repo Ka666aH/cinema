@@ -9,7 +9,7 @@ import type { MovieDraft } from '@/types/Movie'
 const { loading, error, data, search } = useMovieSearch()
 const movieStore = useMovieStore()
 
-const inList = (movie: MovieDraft) => movieStore.movies.some(m => m.title === movie.title && m.year === movie.year)
+const inList = (draft: MovieDraft) => movieStore.movies.some(m => m.title.toLowerCase() === draft.title.toLowerCase() && m.year === draft.year)
 const filtered = computed(() => data.value.filter(m => !inList(m)))
 
 const isQueryEmpty = ref(true)
