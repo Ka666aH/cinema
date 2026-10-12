@@ -1,42 +1,33 @@
-# v3-cinema
+# Cinema
 
-This template should help get you started developing with Vue 3 in Vite.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Vue 3](https://img.shields.io/badge/Vue%203-4FC08D.svg?logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Pinia](https://img.shields.io/badge/Pinia-FFD85E.svg?logo=pinia&logoColor=black)](https://pinia.vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF.svg?logo=vite&logoColor=white)](https://vite.dev/)
 
-## Recommended IDE Setup
+[Читать на русском](README.ru.md)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Movie collection SPA: track movies you plan to watch, mark them as watched, give them a rating. Search Star Wars titles via [SWAPI](https://swapi.dev) and add them straight to your collection. All data lives in the browser (localStorage) — no backend, no accounts.
 
-## Recommended Browser Setup
+![Movie list](docs/movies.png)
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Stack
 
-## Type Support for `.vue` Imports in TS
+- **Vue 3** — Composition API, `<script setup>` single-file components
+- **TypeScript** — typed models, store and composables
+- **Pinia** — application state with persistence to localStorage
+- **Vue Router** — lazy-loaded pages: movie list, movie details, search
+- **Vite** — dev server and production build
+- **SWAPI** — movie data for the search page
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Getting started
 
-## Customize configuration
+Node 22+ required.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
+npm run dev      # dev server with HMR
+npm run build    # type-check + production build to dist/
+npm run preview  # serve the production build locally
 ```
