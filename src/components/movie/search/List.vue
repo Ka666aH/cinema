@@ -13,7 +13,7 @@ const emit = defineEmits<{
 
 <template>
     <TransitionGroup tag="ul" name="list" class="list">
-        <li v-for="(draft, i) in drafts" :key="i" class="list-item">
+        <li v-for="draft in drafts" :key="`${draft.title}-${draft.year}`" class="list-item">
             <Card :draft="draft" @add="emit('add', draft)" />
         </li>
     </TransitionGroup>
