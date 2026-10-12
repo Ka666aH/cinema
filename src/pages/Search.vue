@@ -15,7 +15,7 @@ const filtered = computed(() => data.value.filter(m => !inList(m)))
 const isQueryEmpty = ref(true)
 function onSearch(query: string) {
 
-    isQueryEmpty.value = query === '' ? true : false;
+    isQueryEmpty.value = !query.trim()
     search(query)
 }
 
