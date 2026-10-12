@@ -1,5 +1,5 @@
 import type { MovieDraft } from "@/types/Movie";
-import { ref } from "vue";
+import { onScopeDispose, ref } from "vue";
 
 const BASE_URL = 'https://swapi.dev/api/films/'
 
@@ -21,6 +21,8 @@ export function useMovieSearch() {
     const error = ref<string | null>(null)
     const data = ref<MovieDraft[]>([])
     let controller: AbortController | null = null
+
+    onScopeDispose(() => controller?.abort())
 
     async function search(query: string) {
         const q = query.trim()
